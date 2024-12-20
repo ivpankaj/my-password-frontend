@@ -12,7 +12,7 @@ const PasswordManager = () => {
 
   // Fetch stored passwords
   useEffect(() => {
-    axios.get('http://localhost:5000/api/passwords')
+    axios.get('https://my-password-backend.onrender.com/api/passwords')
       .then(res => setPasswords(res.data))
       .catch(err => console.log(err));
   }, []);  // Make sure we are only fetching once, on component mount
@@ -22,7 +22,7 @@ const PasswordManager = () => {
       setError("Please fill out both fields.");
       return;
     }
-    axios.post('http://localhost:5000/api/passwords/add', { variable, password })
+    axios.post('https://my-password-backend.onrender.com/api/passwords/add', { variable, password })
       .then(() => {
         setVariable('');
         setPassword('');
@@ -40,7 +40,7 @@ const PasswordManager = () => {
       setError("Please enter a new password.");
       return;
     }
-    axios.put(`http://localhost:5000/api/passwords/update/${id}`, { password: updatePassword })
+    axios.put(`https://my-password-backend.onrender.com/api/passwords/update/${id}`, { password: updatePassword })
       .then(() => {
         // Directly update the password list in state after update
         setPasswords(prevPasswords => 
@@ -61,7 +61,7 @@ const PasswordManager = () => {
   };
 
   const handleDeletePassword = (id) => {
-    axios.delete(`http://localhost:5000/api/passwords/delete/${id}`)
+    axios.delete(`https://my-password-backend.onrender.com/api/passwords/delete/${id}`)
       .then(() => {
         setPasswords(prevPasswords => prevPasswords.filter(pwd => pwd._id !== id));
         setVariable('');
